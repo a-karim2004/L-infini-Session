@@ -74,7 +74,8 @@ app.get('/pair', async (req, res) => {
     if (!num) return res.status(400).json({ error: "Numéro manquant" });
 
     // Dossier temporaire pour chaque requête
-    const sessionPath = `./temp_${Date.now()}`;
+   // Remplace la ligne du sessionPath par celle-ci :
+    const sessionPath = process.env.VERCEL ? `/tmp/session_${Date.now()}` : `./session_${Date.now()}`;
     const { state, saveCreds } = await useMultiFileAuthState(sessionPath);
     const { version } = await fetchLatestBaileysVersion();
 
